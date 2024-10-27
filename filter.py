@@ -1,49 +1,53 @@
 import requests
 import base64
+from attributeCalculator import calculate_music_attributes
 # Replace these with your client ID and secret
-client_id = "12e72de55dc441619997bfe071625bcf"
-client_secret = "0dd60f24978c431e931e62c49b88d595"
+def filter (image_path):
+    client_id = "12e72de55dc441619997bfe071625bcf"
+    client_secret = "0dd60f24978c431e931e62c49b88d595"
 
-# Get token
-auth_url = "https://accounts.spotify.com/api/token"
-headers = {
-    "Authorization": "Basic " + base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
-}
-data = {
-    "grant_type": "client_credentials"
-}
-response = requests.post(auth_url, headers=headers, data=data)
-token = response.json().get("access_token")
+    # Get token
+    auth_url = "https://accounts.spotify.com/api/token"
+    headers = {
+        "Authorization": "Basic " + base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
+    }
+    data = {
+        "grant_type": "client_credentials"
+    }
+    response = requests.post(auth_url, headers=headers, data=data)
+    token = response.json().get("access_token")
 
-# Define headers and parameters
-headers = {
-    "Authorization": f"Bearer {token}"
-}
-params = {
-    "seed_genres": "pop,rock",
-    "seed_artists": "4NHQUGzhtTLFvgF5SZesLK",
-    "min_danceability": 0.5,
-    "max_danceability": 0.8,
-    "target_energy": 0.7,
-    "min_tempo": 100,
-    "max_tempo": 130,
-    "target_valence": 0.6,
-    "min_popularity": 50
-}
+    # Define headers and parameters
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
 
-# Send request to Search API
-# Send request to Get Recommendations API
+    attributes = calculate_music_attributes(image_path)
+    
+    params = {
+        "min_danceability": attributes['danceabilityRange'][0],
+        "max_danceability": attributes['danceabilityRange'][1],
+        "target_energy": attributes['energyRange'][0],
+        "min_tempo": attributes['tempoRange'][0],
+        "max_tempo": attributes['tempoRange'][1],
+        "target_valence": attributes['valenceRange'][0],
+    }
 
-url = "https://api.spotify.com/v1/recommendations"
-response = requests.get(url, headers=headers, params=params)
-recommendations = response.json()
-# Display recommended track names and artists
-title_array = []
-artist_array = []
+    # Send request to Search API
+    # Send request to Get Recommendations API
 
-# Loop through the first two recommended tracks
-for track in recommendations["tracks"][:3]:  # Slice to get the first two tracks
-    title_array.append(track["name"])  # Add track name to title_array
-    artist_array.append(track["artists"][0]["name"])  # Add artist name to artist_array
-print(title_array)
-print(artist_array)
+    url = "https://api.spotify.com/v1/recommendations"
+    response = requests.get(url, headers=headers, params=params)
+    recommendations = response.json()
+    print(recommendations)
+    # Display recommended track names and artists
+    title_array = []
+    artist_array = []
+    artwork_array = []
+
+    # Loop through the first two recommended tracks
+    for track in recommendations["tracks"][:3]:  # Slice to get the first two tracks
+        title_array.append(track["name"])  # Add track name to title_array
+        artist_array.append(track["artists"][0]["name"]) 
+        artwork_array.append(track["album"]['images'][0]["url"]) # Add artist name to artist_array
+    return title_array, artist_array, artwork_array
