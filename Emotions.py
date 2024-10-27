@@ -55,7 +55,7 @@ Emotions = {
         "Tempo": [50, 80],
         "Liveliness": [0.2, 0.4]
     },
-    "mysterious" : {
+    "mystery" : {
             "danceability": [0.3, 0.5],
             "Energy": [0.3, 0.7],
             "Valency": [0.0, 0.4],
