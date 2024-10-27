@@ -1,8 +1,8 @@
 import streamlit as st
-from face_exp import compute_face_exp
-from color import compute_color
-from caption import compute_caption
-from mood import compute_mood
+from compute_face_exp import compute_face_exp
+from compute_color import compute_color
+from compute_caption import compute_caption
+from compute_mood import compute_mood
 import os
 
 def process_image_and_analyze(image_path):
