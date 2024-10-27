@@ -62,6 +62,4 @@ def compute_mood(image_path) -> float:
         if score > 0.1:
             return mood 
 
-# Example usage:
-image_path = "/Users/daanish/Downloads/party.jpeg"  # Update the path as needed
-top_two_moods = compute_mood(image_path)
+
