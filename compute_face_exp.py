@@ -3,7 +3,7 @@ from PIL import Image
 import pyheif
 import numpy as np
 
-def compute_face_exp(image_path, confidence_threshold=0.5):
+def compute_face_exp(image_path):
     """
     Analyzes the facial expressions in an image and returns the count of detected faces
     and the most prominent emotion.
@@ -45,8 +45,8 @@ def compute_face_exp(image_path, confidence_threshold=0.5):
             if most_prominent_emotion is None or max(emotions.values()) > emotions[most_prominent_emotion]:
                 most_prominent_emotion = max(emotions, key=emotions.get)
 
-            # Check confidence threshold
-            if emotions[most_prominent_emotion] < confidence_threshold:
-                most_prominent_emotion = None  # Reset if below threshold
+            
         
     return total_faces, most_prominent_emotion
+
+    

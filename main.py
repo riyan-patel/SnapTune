@@ -3,6 +3,7 @@ from compute_face_exp import compute_face_exp
 from compute_color import compute_color
 from compute_caption import compute_caption
 from compute_mood import compute_mood
+from attributeCalculator import calculate_music_attributes
 import os
 
 def process_image_and_analyze(image_path):
@@ -12,7 +13,6 @@ def process_image_and_analyze(image_path):
 
     # Face expression analysis
     face_count, dominant_emotion = compute_face_exp(image_path)
-    st.write(f"Detected {face_count} faces.")
     st.write(f"Dominant Emotion: {dominant_emotion}")
 
     # Mood analysis
@@ -27,12 +27,16 @@ def process_image_and_analyze(image_path):
     color_results = compute_color(image_path)
     st.write(color_results)
 
+    attribute_caluation = calculate_music_attributes(image_path)
+    st.write(attribute_caluation)
+
     return {
         "face_count": face_count,
         "dominant_emotion": dominant_emotion,
         "top_two_moods": top_two_moods,
         "caption": caption,
         "color_results": color_results,
+        "attribute_caluation": attribute_caluation
     }
 
 # Streamlit app

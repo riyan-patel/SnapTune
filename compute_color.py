@@ -18,9 +18,9 @@ def compute_color(image_path):
     def classify_color(rgb):
         r, g, b = rgb
         total = r + g + b
-        warm_percentage = (r / total) * 100
-        cool_percentage = (b / total) * 100
-        neutral_percentage = (g / total) * 100
+        warm_percentage = (r / total)
+        cool_percentage = (b / total)
+        neutral_percentage = (g / total)
         
         return warm_percentage, cool_percentage, neutral_percentage
 
@@ -56,7 +56,7 @@ def compute_color(image_path):
     warm, cool, neutral = classify_color(dominant_color)
 
     # Return the classification result as percentages
-    return f"Dominant color: {dominant_color}\nWarm: {warm:.2f}%, Cool: {cool:.2f}%, Neutral: {neutral:.2f}%"
+    return [warm, cool, neutral]
 
 # Example usage
 # image_path = "/Users/daanish/Downloads/picture.heic"  # Replace with your image path

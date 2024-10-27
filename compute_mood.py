@@ -32,7 +32,7 @@ def compute_mood(image_path) -> float:
     model, preprocess = clip.load("ViT-B/32", device=device)
 
     # Define descriptors for the atmospheres we want
-    atmosphere_descriptions = ["calm", "nostalgic", "romantic", "mysterious", "joyful", "energetic"]
+    atmosphere_descriptions = ["calm", "nostalgic", "romantic", "mysterious", "joyful", "energetic", "melancholy"]
 
     # Tokenize the text descriptions
     text_tokens = clip.tokenize(atmosphere_descriptions).to(device)
@@ -55,11 +55,10 @@ def compute_mood(image_path) -> float:
         atmosphere_scores[description] = score.item()  # `score.item()` to get a scalar value from a tensor if needed
     
     # Get the top two moods by sorting
-    top_two_moods = sorted(atmosphere_scores.items(), key=lambda item: item[1], reverse=True)[:2]
+    top_mood = sorted(atmosphere_scores.items(), key=lambda item: item[1], reverse=True)[0][0]
 
     # Print the top two moods
-    for mood, score in top_two_moods:
-        if score > 0.1:
-            return mood 
+    return top_mood
+    
 
 
