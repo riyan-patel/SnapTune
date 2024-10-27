@@ -1,5 +1,6 @@
 import os
 import google.generativeai as genai
+from trans_download_heic import compute_caption
 
 genai.configure(api_key="AIzaSyBxhogXGPSuV1MS4qHBPINqElckndSkOII")
 
@@ -22,12 +23,13 @@ chat_session = model.start_chat(
   ]
 )
 
-caption = "graduates throwing their caps in the air"
+image_path = "/Users/daanish/Downloads/party.jpeg"
+caption = compute_caption(image_path)
 tags = ["happy", "nostalgic"]
 get_list_response = chat_session.send_message("Take keywords from this sentence: " + caption + "and return them in a python array. Add mood: " + tags[0] +"," + tags[1] + "to this array as well.")
 
 
-song_recs_response = chat_session.send_message("Recommend 15 songs whose lyrics match" + str(get_list_response))
+song_recs_response = chat_session.send_message("Recommend 5 songs whose lyrics match" + str(get_list_response))
 song = chat_session.send_message("Put the names of these songs into a python list")
 
 print(song_recs_response.text)
