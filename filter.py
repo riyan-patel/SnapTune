@@ -23,30 +23,33 @@ def filter (image_path):
     }
 
     attributes = calculate_music_attributes(image_path)
-    
+    print(attributes["energyRange"][1])
     params = {
-        "min_danceability": attributes['danceabilityRange'][0],
-        "max_danceability": attributes['danceabilityRange'][1],
-        "target_energy": attributes['energyRange'][0],
-        "min_tempo": attributes['tempoRange'][0],
-        "max_tempo": attributes['tempoRange'][1],
-        "target_valence": attributes['valenceRange'][0],
+        "seed_genres": 'rock,pop',
+        "min_danceability": attributes["danceabilityRange"][0],
+        "max_danceability": attributes["danceabilityRange"][1],
+        "min_energy": attributes["energyRange"][0],
+        "max_energy": attributes["energyRange"][1],
+        # "min_tempo": attributes["tempoRange"][0],
+        # "max_tempo": attributes["tempoRange"][1],
+        "min_valence": attributes["valenceRange"][0],
+        "max_valence": attributes["valenceRange"][1]
     }
 
     # Send request to Search API
     # Send request to Get Recommendations API
-
+    print("params",params)
     url = "https://api.spotify.com/v1/recommendations"
     response = requests.get(url, headers=headers, params=params)
     recommendations = response.json()
-    print(recommendations)
+    
     # Display recommended track names and artists
     title_array = []
     artist_array = []
     artwork_array = []
 
     # Loop through the first two recommended tracks
-    for track in recommendations["tracks"][:3]:  # Slice to get the first two tracks
+    for track in recommendations["tracks"][:20]:  # Slice to get the first two tracks
         title_array.append(track["name"])  # Add track name to title_array
         artist_array.append(track["artists"][0]["name"]) 
         artwork_array.append(track["album"]['images'][0]["url"]) # Add artist name to artist_array

@@ -33,9 +33,12 @@ def process_image_and_analyze(image_path):
     # st.write(attribute_caluation)
 
     title_array,artist_array,artwork_array = filter(image_path)
-    st.write(title_array)
-    st.write(artist_array)
-    st.image(artwork_array[0], caption="Testing", use_column_width=True)
+    st.header("Recommended Tracks")
+    for title, artist, artwork in zip(title_array, artist_array, artwork_array):
+        st.subheader(title)
+        st.write(f"Artist: {artist}")
+        st.image(artwork, caption=title, use_column_width=True)
+    
 
     return {
         # "face_count": face_count,
