@@ -55,10 +55,6 @@ if uploaded_file is not None:
     st.write("Analyzing the uploaded image...")
     results = process_image_and_analyze(temp_file_path)
 
-    # Display the results
-    st.write("Analysis Results:")
-    st.json(results)
-
     # Clean up the temporary file
     os.remove(temp_file_path)
 else:

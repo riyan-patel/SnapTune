@@ -30,7 +30,8 @@ def calculate_music_attributes(image_path):
     # Assign emotional values
     
     MoodScore = Emotions.Emotions[ImgMood]
-    FaceScore = Emotions.Emotions[FaceExp]
+    if FaceCount != 0:
+        FaceScore = Emotions.Emotions[FaceExp]
     ColorMap = ["happy", "sad", "neutral"]
     ColorScore = addRanges(
         addRanges(Emotions.multiplyEmotion(ColorPalette[0], ColorMap[0]), Emotions.multiplyEmotion(ColorPalette[1], ColorMap[1])),
@@ -47,10 +48,7 @@ def calculate_music_attributes(image_path):
 
     # Calculate
     if FaceCount == 0:
-        FinalArray = addRanges(
-            addRanges(Emotions.multiplyEmotion(MoodWeightObject, ImgMood), multiplyRange(ColorWeightObject, ColorScore)),
-            Emotions.multiplyEmotion(FacialWeightObject, FaceExp)
-        )
+        FinalArray = addRanges(Emotions.multiplyEmotion(MoodWeightObject, ImgMood), multiplyRange(ColorWeightObject, ColorScore))
     else:
         FinalArray = addRanges(
             addRanges(Emotions.multiplyEmotion(MoodWeightPerson, ImgMood), multiplyRange(ColorWeightPerson, ColorScore)),
