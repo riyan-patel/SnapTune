@@ -25,7 +25,7 @@ def filter (image_path):
     attributes = calculate_music_attributes(image_path)
     print(attributes["energyRange"][1])
     params = {
-        "seed_genres": 'rock,pop',
+        "seed_genres": 'rap,pop',
         "min_danceability": attributes["danceabilityRange"][0],
         "max_danceability": attributes["danceabilityRange"][1],
         "min_energy": attributes["energyRange"][0],
