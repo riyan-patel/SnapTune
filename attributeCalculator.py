@@ -29,7 +29,13 @@ def calculate_music_attributes(image_path):
 
     # Assign emotional values
     
-    MoodScore = Emotions.Emotions[ImgMood]
+    if (ImgMood == "nostalgic" or ImgMood == "mysterious"):
+        moodBoolean = True
+        ImgMood = "happy"
+        MoodScore = Emotions.Emotions["happy"]
+    else: 
+        MoodScore = Emotions.Emotions[ImgMood]
+        moodBoolean = False
     if FaceCount != 0:
         FaceScore = Emotions.Emotions[FaceExp]
     ColorMap = ["happy", "sad", "neutral"]
@@ -39,12 +45,20 @@ def calculate_music_attributes(image_path):
     )
 
     # Weights
-    MoodWeightPerson = 0.3
-    FacialWeightPerson = 0.6
-    ColorWeightPerson = 0.1
-    MoodWeightObject = 0.65
-    FacialWeightObject = 0.0
-    ColorWeightObject = 0.35
+    if(moodBoolean):
+        MoodWeightPerson = 0.0
+        FacialWeightPerson = 0.7
+        ColorWeightPerson = 0.3
+        MoodWeightObject = 0.0
+        FacialWeightObject = 0.0
+        ColorWeightObject = 1.0
+    else:
+        MoodWeightPerson = 0.3
+        FacialWeightPerson = 0.6
+        ColorWeightPerson = 0.1
+        MoodWeightObject = 0.65
+        FacialWeightObject = 0.0
+        ColorWeightObject = 0.35
 
     # Calculate
     if FaceCount == 0:
@@ -69,4 +83,4 @@ def calculate_music_attributes(image_path):
         "valenceRange": valenceRange,
         "tempoRange": tempoRange,
         "LivelinessRange": LivelinessRange
-    }
+    } , moodBoolean

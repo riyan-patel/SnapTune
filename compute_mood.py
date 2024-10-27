@@ -57,7 +57,7 @@ def compute_mood(image_path) -> float:
     # Get the top two moods by sorting
     top_mood = sorted(atmosphere_scores.items(), key=lambda item: item[1], reverse=True)[0][0]
 
-    # Print the top two moods
+    # Print the top mood
     return top_mood
     
 

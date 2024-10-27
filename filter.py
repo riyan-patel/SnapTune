@@ -22,10 +22,10 @@ def filter (image_path):
         "Authorization": f"Bearer {token}"
     }
 
-    attributes = calculate_music_attributes(image_path)
+    attributes, randBool = calculate_music_attributes(image_path)
     print(attributes["energyRange"][1])
     params = {
-        "seed_genres": 'rock,pop',
+        "seed_genres": 'rock,pop,rap',
         "min_danceability": attributes["danceabilityRange"][0],
         "max_danceability": attributes["danceabilityRange"][1],
         "min_energy": attributes["energyRange"][0],
