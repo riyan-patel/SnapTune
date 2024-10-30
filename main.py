@@ -16,24 +16,24 @@ def process_image_and_analyze(image_path):
         return f"File does not exist at: {image_path}"
 
     # Face expression analysis
-    # face_count, dominant_emotion = compute_face_exp(image_path)
-    # st.write(f"Dominant Emotion: {dominant_emotion}")
+    face_count, dominant_emotion = compute_face_exp(image_path)
+    st.write(f"Dominant Emotion: {dominant_emotion}")
 
     # Mood analysis
-    # top_two_moods = compute_mood(image_path)
-    # st.write(f"Top moods: {top_two_moods}")
+    top_two_moods = compute_mood(image_path)
+    st.write(f"Top moods: {top_two_moods}")
 
-    # # Caption generation
-    # caption = compute_caption(image_path)
-    # st.write("Generated Caption:", caption)
+    # Caption generation
+    caption = compute_caption(image_path)
+    st.write("Generated Caption:", caption)
 
-    # # Color analysis
-    # color_results = compute_color(image_path)
-    # st.write(color_results)
+    # Color analysis
+    color_results = compute_color(image_path)
+    st.write(color_results)
 
-    # attribute_caluation = calculate_music_attributes(image_path)
-    # print(attribute_caluation)
-    # st.write(attribute_caluation)
+    attribute_caluation = calculate_music_attributes(image_path)
+    print(attribute_caluation)
+    st.write(attribute_caluation)
 
     # title_array, artist_array, artwork_array = filter(image_path)
     # st.header("Recommended Tracks")
